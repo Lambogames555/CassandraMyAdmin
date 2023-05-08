@@ -24,6 +24,8 @@ https://discord.gg/spDf8jXuSc
 CassandraMyAdmin is licensed under the GNU General Public License v3.0. See the LICENSE file for more information.
 
 ## 💻 Misc
+Please note that this project incorporates open-source software packages licensed under various licenses. Before using this project, please ensure that you review and agree to the license terms of these packages. Any part of this project released by us is licensed under the GNU General Public License, Version 3.
+
 We hope you find CassandraMyAdmin useful! If you have any questions or issues, please don't hesitate to open an issue or pull request. Thank you! 😃
 
 Project Administrator: Philipp Stein
