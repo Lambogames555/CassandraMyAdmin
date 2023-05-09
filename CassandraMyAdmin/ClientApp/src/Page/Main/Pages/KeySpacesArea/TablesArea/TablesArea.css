@@ -1,0 +1,54 @@
+.tables-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.tables-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+
+.tables-list li:nth-child(even) {
+    background: #383849;
+}
+
+.tables-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 400px;
+    text-align: left;
+}
+
+.tables-button:hover {
+    color: #CFCFCF;
+}
+
+.tables-tableInfo {
+    font-style: italic;
+    color: gray;
+}
+
+.tables-delete-button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/*TODO looks buggy*/
+.tables-delete-button :hover {
+    color: #CFCFCF;
+}
+
+.tables-button-box {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 30px;
+}

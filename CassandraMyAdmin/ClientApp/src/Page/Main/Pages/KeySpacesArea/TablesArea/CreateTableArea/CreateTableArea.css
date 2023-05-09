@@ -1,0 +1,30 @@
+.createTable-button-box {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 30px;
+}
+
+.createTable-table-box {
+    overflow: auto;
+    height: 600px;
+}
+
+.createTable-table {
+    table-layout: auto;
+    text-align: left;
+}
+
+.createTable-row td, .createTable-column {
+    border: none;
+    font-size: 20px;
+    padding-right: 50px;
+}
+
+
+.createTable-column:last-child {
+    padding-right: 0;
+}
+
+.createTable-row th {
+    padding-bottom: 20px;
+}

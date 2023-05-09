@@ -1,0 +1,44 @@
+.messagebox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messagebox-inner {
+    position: relative;
+    width: 700px;
+    height: 350px;
+    border-radius: 20px;
+    background: #22222D;
+    -webkit-box-shadow: 5px 5px 17px 5px #000000;
+    box-shadow: 5px 5px 17px 5px #000000;
+}
+
+.messagebox-title {
+    text-align: center;
+}
+
+
+.messagebox-bottom {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.messagebox-text-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messagebox-text-box p {
+    max-width: 90%;
+    font-size: 19px;
+}

@@ -1,0 +1,47 @@
+.keyspaces-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.keyspaces-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+
+.keyspaces-list li:nth-child(even) {
+    background: #383849;
+}
+
+.keyspaces-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: left;
+    width: 400px;
+}
+
+.keyspaces-tableInfo {
+    font-style: italic;
+    color: gray;
+}
+
+.keyspaces-button:hover {
+    color: #CFCFCF;
+}
+
+.keyspaces-delete-button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/*TODO looks buggy*/
+.keyspaces-delete-button :hover {
+    color: #CFCFCF;
+}

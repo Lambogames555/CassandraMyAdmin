@@ -1,0 +1,68 @@
+.about-header * {
+    padding: 0;
+    margin: 0;
+}
+
+.about-header a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.about-header *:last-child {
+    margin-top: 20px;
+}
+
+.big-text {
+    font-size: 50px;
+}
+
+.about-contributors {
+    margin-top: 50px;
+}
+
+.about-contributors ul {
+    list-style: none;
+}
+
+.about-contributors ul {
+    padding: 0;
+    margin: 0;
+}
+
+.about-avatar {
+    background: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+}
+
+.about-contributors-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-row-gap: 20px;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+}
+
+.about-user-item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 180px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.about-user-item img {
+    margin-right: 20px;
+}
+
+.about-contributors-header {
+    margin-bottom: 20px;
+}
+
+.about-contributors-header * {
+    padding: 0;
+    margin: 0;
+}

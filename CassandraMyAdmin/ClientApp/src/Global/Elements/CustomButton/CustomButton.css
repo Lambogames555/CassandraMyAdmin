@@ -1,0 +1,49 @@
+﻿.custom-button {
+    display: flex;
+    height: 50px;
+    width: 400px;
+    padding: 0;
+    background: #393948;
+    border-radius: 8px;
+    overflow: hidden;
+    font-weight: bolder;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.custom-button:hover,
+.custom-button.active {
+    background: #c92d3b;
+}
+
+
+.custom-button-text {
+    margin: 0;
+    font-size: 22px;
+}
+
+.custom-button-text,
+.custom-button-icon-box {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 18px;
+    height: 100%;
+}
+
+.custom-button-icon-box {
+    font-size: 30px;
+    min-width: 60px;
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.custom-button-icon {
+    color: red;
+    fill: red;
+}
+
+.custom-button-icon svg path {
+    fill: red;
+}

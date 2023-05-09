@@ -1,0 +1,53 @@
+.login-label {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.login-textbox {
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    width: 450px;
+}
+
+.login-textbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #87cefa;
+}
+
+.login-dropdown {
+    width: 470px !important;
+}
+
+
+.login-input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.login-box {
+    width: 600px;
+    height: 500px;
+
+    border-radius: 20px;
+    background: #22222D;
+    -webkit-box-shadow: 5px 5px 17px 5px #000000;
+    box-shadow: 5px 5px 17px 5px #000000;
+}
+
+.login-header {
+    margin: 40px 0;
+}
+
+.login-footer {
+    margin-top: 30px;
+}
+
+.login-footer button {
+    width: 475px;
+}

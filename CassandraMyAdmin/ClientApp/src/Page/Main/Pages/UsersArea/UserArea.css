@@ -1,0 +1,46 @@
+/*TODO update css with classnames -> no direct access */
+
+table {
+    border-collapse: collapse;
+}
+
+.users-table-row td, th {
+    border: none;
+    font-size: 28px;
+}
+
+.users-table-padding {
+    padding-left: 20px;
+}
+
+.users-table {
+    width: 100%;
+    text-align: left;
+}
+
+th {
+    padding-bottom: 20px;
+}
+
+.users-table-row {
+    height: 70px;
+}
+
+.users-table-row:nth-child(even) {
+    background: #383849;
+}
+
+.align-right {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.users-button-box {
+    margin-bottom: 50px;
+}
+
+.users-superuser {
+    padding: 5px 10px;
+    background: #c92d3b;
+    border-radius: 20px;
+}

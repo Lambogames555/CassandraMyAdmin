@@ -1,0 +1,137 @@
+{
+  "confirmBoxText": "Wollen Sie das wirklich tun?",
+  "workInProcess": "In Arbeit...",
+  "menuButton": {
+    "statistics": "Statistiken",
+    "hosts": "Hosts",
+    "keySpaces": "Keyspaces",
+    "users": "Benutzer",
+    "about": "Über",
+    "logout": "Abmelden"
+  },
+  "users": {
+    "title": "Benutzer",
+    "createUser": "Benutzer erstellen",
+    "username": "Benutzername",
+    "superuser": "Superbenutzer"
+  },
+  "popup": {
+    "cancel": "Abbrechen",
+    "continue": "Fortsetzten"
+  },
+  "renameUserPopup": {
+    "newUsername": "Neuer Benutzername:",
+    "title": "Benutzer umbenennen",
+    "noUsername": "Bitte geben Sie einen Benutzernamen ein.",
+    "usernameContainsForbiddenCharacters": "Der Benutzername enthält verbotene Zeichen."
+  },
+  "createUserPopup": {
+    "title": "Erstelle einen Benutzer",
+    "newUsername": "Benutzername:",
+    "newPassword": "Password:",
+    "retypeNewPassword": "Passwort wiederholen:",
+    "superUser": "Superbenutzer",
+    "usernamePasswordContainsForbiddenCharacters": "Der Benutzername oder das Passwort enthält verbotene Zeichen.",
+    "noUsername": "Bitte geben Sie einen Benutzername ein.",
+    "noPassword": "Bitte geben Sie ein Passwort ein.",
+    "notTheSamePasswords": "Die beiden Kennwörter stimmen nicht überein."
+  },
+  "messageBox": {
+    "error": "Fehler",
+    "warning": "Warnung",
+    "information": "Information",
+    "ok": "Ok",
+    "serverRequestErrors": {
+      "incorrectlyFormatted": "Der Server hat die folgende Antwort gesendet: Falsch formatierte Anfrage. (Entwickler Fehler)",
+      "serverError": "Interner Serverfehler"
+    }
+  },
+  "loadingPopup": {
+    "pleaseWait": "Bitte warten..."
+  },
+  "userDropdownMenu": {
+    "rename": "Umbenennen",
+    "demote": "Herabstufen",
+    "promote": "Hochstufen",
+    "delete": "Löschen"
+  },
+  "statistics": {
+    "greeting": "Guten Tag {{username}}! Sie sind verbunden zu {{clusterName}}."
+  },
+  "hosts": {
+    "title": "Hosts",
+    "ip": "Ip",
+    "id": "Id",
+    "rack": "Rack",
+    "version": "Version",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "keySpaces": {
+    "title": "Keyspaces",
+    "createKeySpace": "Keyspace erstellen",
+    "nothingFound": "Keine Keyspaces gefunden.",
+    "tables": "Tabellen"
+  },
+  "createKeySpacePopup": {
+    "createKeySpace": "Keyspace erstellen",
+    "noKeySpaceName": "Bitte geben Sie einen keyspace name ein.",
+    "keySpaceNameContainsForbiddenCharacters": "Der keyspace name enthält verbotene Zeichen.",
+    "title": "Keyspace erstellen",
+    "newKeyspaceName": "Keyspace name:",
+    "replication": "Replikation:",
+    "simpleStrategy": "SimpleStrategy",
+    "networkTopologyStrategy": "NetworkTopologyStrategy",
+    "replicationFactor": "Replikationsfaktor:"
+  },
+  "tables": {
+    "title": "Keyspaces ansicht: {{keySpaceName}}",
+    "back": "Zurück",
+    "createTable": "Tabelle erstellen",
+    "nothingFound": "Keine tabellen gefunden.",
+    "clear": "Leeren",
+    "delete": "Löschen",
+    "rows": "Reihen"
+  },
+  "createTable": {
+    "title": "Tabelle erstellen",
+    "cancel": "Abbrechen",
+    "create": "Tabelle erstellen",
+    "newTableName": "Tabellenname:",
+    "name": "Name",
+    "type": "Typ",
+    "primaryKey": "Primärschlüssel",
+    "noTableName": "Bitte geben Sie einen Tabellennamen ein.",
+    "tableNameContainsForbiddenCharacters": "Der Tabellenname enthält verbotene Zeichen.",
+    "primaryKeyNeeded": "Eine Tabelle muss mindestens einen Primärschlüssel haben.",
+    "columnNameContainsForbiddenCharacters": "Ein Spaltenname enthält verbotene Zeichen."
+  },
+  "tableViewer": {
+    "title": "Tabellen ansicht: {{tableName}}",
+    "back": "Zurück",
+    "last": "Letzte",
+    "next": "Nächste"
+  },
+  "loginPage": {
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "usernameOrPasswordIncorrect": "Benutzername oder Password falsch.",
+    "userNotAllowed": "Dieser Benutzer darf sich nicht anmelden.",
+    "cassandraUnavailable": "Verbindung zu Host fehlgeschlagen."
+  },
+  "about": {
+    "title": "Über",
+    "licensedUnder": "Lizensiert unter",
+    "projectAdministrator": "Projektleiter", 
+    "contributors": "Mitwirkende (Top 100)",
+    "thankYou": "Vielen Dank an alle, die dazu beigetragen haben."
+  },
+  "updateBox": {
+    "updateCheck": "Suche nach Aktualisierungen...",
+    "updateCheckError": "Ein fehler ist bei der Update suche aufgetreten.",
+    "updateFound": "Eine Aktualisierungen wurde gefunden. Die Aktualisierung: {{updateName}} (V{{updateTag}})!",
+    "noUpdateFound": "Sie haben bereits die neueste Version."
+  }
+}

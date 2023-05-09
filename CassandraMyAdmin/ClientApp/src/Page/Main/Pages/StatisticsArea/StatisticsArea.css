@@ -1,0 +1,28 @@
+.statistics-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-row-gap: 20px;
+    grid-column-gap: 30px;
+    justify-content: right;
+    align-items: center;
+}
+
+.statistics-area {
+    display: flex;
+    justify-content: center;
+    
+    height: calc(100vh - 500px - 50px);
+
+    margin-top: 25px;
+
+    border-radius: 20px;
+    background: #22222D;
+    -webkit-box-shadow: 5px 5px 17px 5px #000000;
+    box-shadow: 5px 5px 17px 5px #000000;
+
+    padding: 25px;
+}
+
+.statistics-greeting-text {
+    margin-bottom: 20px;
+}

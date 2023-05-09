@@ -1,0 +1,35 @@
+.hosts-datacenter-name {
+    text-transform: capitalize;
+    margin: 30px 0;
+}
+
+.hosts-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.hosts-table td, .hosts-table th {
+    border: none;
+    font-size: 22px;
+}
+
+.hosts-table th {
+    padding-bottom: 20px;
+}
+
+.hosts-table-padding {
+    padding-left: 20px;
+}
+
+.hosts-table-row {
+    height: 70px;
+}
+
+.hosts-table tr.host-offline {
+    background: rgba(255, 86, 0, 0.3);
+}
+
+.hosts-table tr.host-online {
+    background: rgba(86, 255, 0, 0.3);
+}

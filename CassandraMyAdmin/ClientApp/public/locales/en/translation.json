@@ -1,0 +1,137 @@
+{
+  "confirmBoxText": "Do you really want to do that?",
+  "workInProcess": "Work in process...",
+  "menuButton": {
+    "statistics": "Statistics",
+    "hosts": "Hosts",
+    "keySpaces": "Keyspaces",
+    "users": "Users",
+    "about": "About",
+    "logout": "Logout"
+  },
+  "users": {
+    "title": "Users",
+    "createUser": "Create user",
+    "username": "Username",
+    "superuser": "Superuser"
+  },
+  "popup": {
+    "cancel": "Cancel",
+    "continue": "Continue"
+  },
+  "renameUserPopup": {
+    "newUsername": "Set new username:",
+    "title": "Rename user",
+    "noUsername": "Please enter a username.",
+    "usernameContainsForbiddenCharacters": "The username contains forbidden characters."
+  },
+  "createUserPopup": {
+    "title": "Create a user",
+    "newUsername": "Username:",
+    "newPassword": "Password:",
+    "retypeNewPassword": "Retype password:",
+    "superUser": "Superuser",
+    "usernamePasswordContainsForbiddenCharacters": "The username or the password contains forbidden characters.",
+    "noUsername": "Please enter a username.",
+    "noPassword": "Please enter a password.",
+    "notTheSamePasswords": "The two passwords do not match."
+  },
+  "messageBox": {
+    "error": "Error",
+    "warning": "Warning",
+    "information": "Information",
+    "ok": "Ok",
+    "serverRequestErrors": {
+      "incorrectlyFormatted": "The Server has sent the following response: Incorrectly formatted request. (Developer Error)",
+      "serverError": "Internal Server Error"
+    }
+  },
+  "loadingPopup": {
+    "pleaseWait": "Please wait..."
+  },
+  "userDropdownMenu": {
+    "rename": "Rename",
+    "demote": "Demote",
+    "promote": "Promote",
+    "delete": "Delete"
+  },
+  "statistics": {
+    "greeting": "Hello {{username}}! You are connected to {{clusterName}}."
+  },
+  "hosts": {
+    "title": "Hosts",
+    "ip": "Ip",
+    "id": "Id",
+    "rack": "Rack",
+    "version": "Version",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "keySpaces": {
+    "title": "Keyspaces",
+    "createKeySpace": "Create keyspace",
+    "nothingFound": "No Keyspaces found.",
+    "tables": "Tables"
+  },
+  "createKeySpacePopup": {
+    "createKeySpace": "Create keyspace",
+    "noKeySpaceName": "Please enter a keyspace name.",
+    "keySpaceNameContainsForbiddenCharacters": "The keyspace name contains forbidden characters.",
+    "title": "Create keyspace",
+    "newKeyspaceName": "Keyspace name:",
+    "replication": "Replication:",
+    "simpleStrategy": "SimpleStrategy",
+    "networkTopologyStrategy": "NetworkTopologyStrategy",
+    "replicationFactor": "Replication factor:"
+  },
+  "tables": {
+    "title": "Viewing Keyspace: {{keySpaceName}}",
+    "back": "Back",
+    "createTable": "Create table",
+    "nothingFound": "No tables found.",
+    "clear": "Clear",
+    "delete": "Delete",
+    "rows": "Rows"
+  },
+  "createTable": {
+    "title": "Create a table",
+    "cancel": "Cancel",
+    "create": "Create table",
+    "newTableName": "Table name:",
+    "name": "Name",
+    "type": "Type",
+    "primaryKey": "Primary key",
+    "noTableName": "Please enter a table name.",
+    "tableNameContainsForbiddenCharacters": "The table name contains forbidden characters.",
+    "primaryKeyNeeded": "A table must have at least one primary key.",
+    "columnNameContainsForbiddenCharacters": "A Column name contains forbidden characters."
+  },
+  "tableViewer": {
+    "title": "Viewing Table: {{tableName}}",
+    "back": "Back",
+    "last": "Last",
+    "next": "Next"
+  },
+  "loginPage": {
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "usernameOrPasswordIncorrect": "Username or password incorrect.",
+    "userNotAllowed": "This user is not allowed to log in.",
+    "cassandraUnavailable": "Could not connect to a host."
+  },
+  "about": {
+    "title": "About",
+    "licensedUnder": "Licensed under",
+    "projectAdministrator": "Project administrator",
+    "contributors": "Contributors (Top 100)",
+    "thankYou": "Thank you to all the contributors."
+  },
+  "updateBox": {
+    "updateCheck": "Checking for updates...",
+    "updateCheckError": "An error occurred while checking for updates.",
+    "updateFound": "An Update was found! The Update {{updateName}} (V{{updateTag}})!",
+    "noUpdateFound": "You already have the latest version."
+  }
+}

@@ -1,0 +1,157 @@
+﻿.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    border-radius: 20px;
+    background: #22222D;
+    -webkit-box-shadow: 5px 5px 17px 5px #000000;
+    box-shadow: 5px 5px 17px 5px #000000;
+}
+
+/*TODO better center system (center all items)*/
+.popup-body {
+    margin: 40px;
+    margin-left: 120px;
+}
+
+.popup-title {
+    text-align: center;
+}
+
+.popup-bottom {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    gap: 30px;
+    padding: 0 35px;
+}
+
+.popup-label {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.popup-textbox {
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    width: 600px;
+}
+
+.popup-textbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #87cefa;
+}
+
+.popup-dropdown {
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    width: 620px;
+}
+
+.popup-dropdown:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #87cefa;
+}
+
+.popup-input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+
+/* The container */
+.popup-checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.popup-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.popup-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #333;
+}
+
+/* On mouse-over, add a grey background color */
+.popup-checkbox-container:hover input ~ .popup-checkbox {
+    background-color: #212121;
+}
+
+/* When the checkbox is checked, add a red background */
+.popup-checkbox-container input:checked ~ .popup-checkbox {
+    background-color: #c92d3b;
+}
+
+/* When the checkbox is disabled */
+
+.popup-checkbox-container input:disabled ~ .popup-checkbox {
+    background-color: dimgray !important;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.popup-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.popup-checkbox-container input:checked ~ .popup-checkbox:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.popup-checkbox-container .popup-checkbox:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

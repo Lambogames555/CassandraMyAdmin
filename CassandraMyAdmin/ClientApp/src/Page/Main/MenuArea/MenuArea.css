@@ -1,0 +1,30 @@
+.menu-box {
+    background: #22222D;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 450px;
+    box-shadow: 10px 0 5px -5px rgba(0, 0, 0, 0.5);
+    font-size: 24px;
+}
+
+.menu-header {
+    padding-top: 30px;
+    padding-bottom: 100px;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin-left: 30px;
+}
+
+.menu-list li {
+    margin-bottom: 20px;
+}
+
+.menu-list li:last-child {
+    position: fixed;
+    bottom: 10px;
+}

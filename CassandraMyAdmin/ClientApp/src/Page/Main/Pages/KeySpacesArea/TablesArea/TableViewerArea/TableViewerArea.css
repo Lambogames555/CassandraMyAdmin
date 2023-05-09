@@ -1,0 +1,49 @@
+.createTable-button-box {
+    margin-bottom: 50px;
+    display: flex;
+    gap: 30px;
+}
+
+
+/*TODO update css with classnames -> no direct access */
+
+table {
+    border-collapse: collapse;
+}
+
+.tableViewer-row td {
+    border: none;
+    font-size: 22px;
+    padding: 10px;
+    padding-right: 40px;
+    min-width: 100px;
+    white-space: nowrap;
+    height: 70px;
+}
+
+.tableViewer-column {
+    padding-left: 10px;
+    padding-right: 40px;
+}
+
+.tableViewer-column:last-child {
+    padding-right: 0;
+}
+
+.tableViewer-row:nth-child(even) {
+    background: #383849;
+}
+
+.tableViewer-box {
+    overflow: auto;
+    height: 700px;
+}
+
+.tableViewer-table {
+    table-layout: auto;
+    text-align: left;
+}
+
+th {
+    padding-bottom: 20px;
+}
