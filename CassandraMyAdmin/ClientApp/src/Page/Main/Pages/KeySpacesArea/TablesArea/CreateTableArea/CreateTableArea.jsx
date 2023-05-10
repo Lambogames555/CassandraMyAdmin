@@ -147,14 +147,8 @@ function CreateTableArea({currentSessionId, currentKeySpace, showMsgBox, handleC
         <div className={"window-box"}>
 
             <h1>{t("createTable.title")}</h1>
-
-            {
-                // TODO wrong class (users-button-box)
-            }
+            
             <div className={"createTable-button-box"}>
-                {
-                    // TODO dont use the menu button, make this better or rename this button to a "normal" button
-                }
                 <CustomButton text={t("createTable.cancel")} icon={closeIcon} isActive={false}
                               onClick={() => handleClose()}/>
                 <CustomButton text={t("createTable.create")} icon={addIcon} isActive={false}

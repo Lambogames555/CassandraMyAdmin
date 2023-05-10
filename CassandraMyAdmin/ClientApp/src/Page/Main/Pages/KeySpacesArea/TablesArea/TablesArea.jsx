@@ -159,9 +159,6 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
             <h1>{t("tables.title", {keySpaceName: openKeySpace})}</h1>
 
             <div className={"tables-button-box"}>
-                {
-                    // TODO dont use the menu button, make this better or rename this button to a "normal" button
-                }
                 <CustomButton text={t("tables.back")} icon={arrowBackIcon} isActive={false}
                               onClick={() => handleClose()}/>
                 <CustomButton text={t("tables.createTable")} icon={addIcon} isActive={false}
