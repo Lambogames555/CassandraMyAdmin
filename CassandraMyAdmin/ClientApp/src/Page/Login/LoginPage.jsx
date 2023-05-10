@@ -123,7 +123,7 @@ function LoginPage() {
                         <div className={"login-input-box"}>
                             <select onChange={handleLanguageChange} className={"popup-dropdown login-dropdown"} value={i18n.language}>
                                 <option value="en">🇺🇸 English</option>
-                                <option value="de">🇩🇪 German</option>
+                                <option value="de">🇩🇪 Deutsch</option>
                             </select>
                         </div>
                     </div>
