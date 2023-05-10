@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 
 import moreIcon from '../../../Resources/GoogleMaterialIcons/more.svg'
 
-// TODO make the "Index" system better
 function DropdownMenu({data, buttonList, onItemSelected}) {
     const {t} = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
@@ -44,11 +43,11 @@ function DropdownMenu({data, buttonList, onItemSelected}) {
 
             {isOpen && (
                 <div className="dropdown-menu">
-                    {buttonList.map((item, index) => (
+                    {buttonList.map(([ item, enumNumber] ) => (
                         <button
-                            key={index}
+                            key={enumNumber}
                             className="dropdown-item"
-                            onClick={() => handleClick(index)}
+                            onClick={() => handleClick(enumNumber)}
                         >
                             {t(item)}
                         </button>

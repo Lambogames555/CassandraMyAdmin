@@ -26,9 +26,15 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
     const {data, isLoading, error, fetchData} = Fetcher([], showMsgBox, true, '/Cassandra/GetCassandraKeySpaceTables');
 
     const [activePopup, setActivePopup] = useState(0);
-
+    const [selectedTable, setSelectedTable] = useState(null);
+    
     const [requestData, setRequestData] = useState({});
 
+    const TablesDropDownMenuEnum = {
+        Clear: 1,
+        Delete: 2,
+    }
+    
     useEffect(() => {
         const requestData = {
             keySpaceName: openKeySpace
@@ -40,27 +46,27 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentSessionId]);
 
-    // TODO the "index" system is bad -> make this better
-    function onDropDownClicked(currentTableName, index) {
-        setActivePopupValue(currentTableName, index + 3);
-    }
 
-    function setActivePopupValue(currentTableName, index) {
-        if (index > 2) {
-            if (!window.confirm(t("confirmBoxText"))) {
-                return;
-            }
+    function onDropDownClicked(currentTableName, enumNumber) {
+   
+        if (!window.confirm(t("confirmBoxText"))) {
+            return;
         }
 
-        setActivePopup(index);
-
         setRequestData({
-            action: index - 2,
+            action: enumNumber,
             sessionId: currentSessionId,
             tableName: currentTableName,
             keySpaceName: openKeySpace,
             options: {}
         });
+
+        setActivePopupValue(enumNumber + 3);
+
+    }
+
+    function setActivePopupValue(popupId) {
+        setActivePopup(popupId);
     }
 
     function handlePopupClose() {
@@ -105,7 +111,7 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
                 <TableViewerArea
                     currentSessionId={currentSessionId}
                     currentKeySpace={openKeySpace}
-                    currentTable={requestData.tableName}
+                    currentTable={selectedTable}
                     showMsgBox={showMsgBox}
                     handleClose={handlePopupClose}
                     handleMsgBoxClose={() => setShowMessageBox(false)}
@@ -159,7 +165,7 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
                 <CustomButton text={t("tables.back")} icon={arrowBackIcon} isActive={false}
                               onClick={() => handleClose()}/>
                 <CustomButton text={t("tables.createTable")} icon={addIcon} isActive={false}
-                              onClick={() => setActivePopupValue(null, 2)}/>
+                              onClick={() => setActivePopupValue( 2)}/>
             </div>
 
 
@@ -169,7 +175,11 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
                         {Object.keys(data).map((key) => (
                             <li key={key}>
                                 <div>
-                                    <button className={"tables-button"} onClick={() => setActivePopupValue(key, 1)}>
+                                    <button className={"tables-button"} onClick={() => {
+                                                setSelectedTable(key);
+                                                setActivePopupValue(1);
+                                            }
+                                        }>
                                         {key}
                                     </button>
                                     {
@@ -180,8 +190,9 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
                                 {
                                     // TODO edit table
                                 }
-                                <DropdownMenu data={key}
-                                              buttonList={["tables.clear", "tables.delete"]}
+                                <DropdownMenu key={key}
+                                              data={key}
+                                              buttonList={[["tables.clear", TablesDropDownMenuEnum.Clear], ["tables.delete", TablesDropDownMenuEnum.Delete]]}
                                               onItemSelected={onDropDownClicked}/>
 
                             </li>

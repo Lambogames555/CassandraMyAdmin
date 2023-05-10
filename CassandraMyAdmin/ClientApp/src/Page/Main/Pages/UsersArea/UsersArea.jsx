@@ -29,6 +29,14 @@ function UsersArea({currentSessionId}) {
 
     const [requestData, setRequestData] = useState({});
 
+    const UsersDropDownMenuEnum = {
+        Rename: 0,
+        Promote: 1,
+        Demote: 2,
+        Delete: 3,
+        Permissions: 4,
+    }
+    
     useEffect(() => {
         // noinspection JSIgnoredPromiseFromCall
         fetchData(currentSessionId);
@@ -65,53 +73,46 @@ function UsersArea({currentSessionId}) {
         )
     }
 
-    function onDropDownClicked(user, index) {
+    function onDropDownClicked(user, enumNumber) {
 
-        // TODO DEBUG (because "rename" is WIP)
-        index++;
+        switch (enumNumber) {
+            case UsersDropDownMenuEnum.Rename:
+                
+                // Set username for the popup
+                setActiveUsername(user.username);
 
-        if (index === 0) {
-
-            // Set username for the popup
-            setActiveUsername(user.username);
-
-            // Show rename user popup
-            setActivePopup(2);
-
-            return;
-        }
-
-        if (!window.confirm(t("confirmBoxText"))) {
-            return;
-        }
-
-        // Handle all other things -> user promote, demote and delete
-        //setActivePopup(index + 2);
-
-        // TODO this is a bad system
-        switch (index) {
-            case 1:
-                //promote/demote
-                if (user.isSuperuser)
-                    index++;
+                // Show rename user popup
+                setActivePopup(2);
+                
                 break;
-            case 2:
-                //delete user
-                index++;
+
+            case UsersDropDownMenuEnum.Promote:
+            case UsersDropDownMenuEnum.Demote:
+            case UsersDropDownMenuEnum.Delete:
+
+                if (!window.confirm(t("confirmBoxText"))) {
+                    return;
+                }
+                
+                // Set the request data
+                setRequestData({
+                    sessionId: currentSessionId,
+                    action: enumNumber,
+                    username: user.username,
+                    options: {},
+                });
+
+                setActivePopup(3);
+                
                 break;
-            default:
+                
+            case UsersDropDownMenuEnum.Permissions:
+                
+                //TODO implement
+                
                 break;
         }
-
-        // Set the request data
-        setRequestData({
-            sessionId: currentSessionId,
-            action: index,
-            username: user.username,
-            options: {},
-        });
-
-        setActivePopup(3);
+        
     }
 
     return (
@@ -147,7 +148,7 @@ function UsersArea({currentSessionId}) {
                                     <span className={"users-superuser"}>{t("users.superuser")}</span> : null}</td>
                                 <td className={"align-right"}>
                                     <DropdownMenu data={user}
-                                                  buttonList={user.isSuperuser ? ["userDropdownMenu.demote", "userDropdownMenu.delete"] : ["userDropdownMenu.promote", "userDropdownMenu.delete"]}
+                                                  buttonList={user.isSuperuser ? [["userDropdownMenu.demote", UsersDropDownMenuEnum.Demote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete]] : [["userDropdownMenu.promote", UsersDropDownMenuEnum.Promote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete]]}
                                                   onItemSelected={onDropDownClicked}/>
                                 </td>
                             </tr>
