@@ -54,6 +54,11 @@
     width: 600px;
 }
 
+.popup-textbox:disabled {
+    background-color: #222;
+    cursor: not-allowed;
+}
+
 .popup-textbox:focus {
     outline: none;
     box-shadow: 0 0 0 3px #87cefa;
