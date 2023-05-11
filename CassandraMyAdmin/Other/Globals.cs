@@ -6,7 +6,7 @@ namespace CassandraMyAdmin.Other;
 
 public class Globals
 {
-    internal const string Version = "0.1.0";
+    internal const string Version = "0.2.0";
 
     internal static readonly GitHubApiHelper GitHubApiHelper = new("Lambogames555", "CassandraMyAdmin", new MemoryCache(new MemoryCacheOptions()));
     
