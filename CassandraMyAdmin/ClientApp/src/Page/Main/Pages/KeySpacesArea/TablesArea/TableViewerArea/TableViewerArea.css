@@ -18,7 +18,7 @@ table {
     padding-right: 40px;
     min-width: 100px;
     white-space: nowrap;
-    height: 70px;
+    height: 54px;
 }
 
 .tableViewer-column {
@@ -36,7 +36,7 @@ table {
 
 .tableViewer-box {
     overflow: auto;
-    height: 700px;
+    height: 740px;
 }
 
 .tableViewer-table {
