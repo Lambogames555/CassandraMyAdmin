@@ -33,9 +33,6 @@
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <Content Remove="settings.json" />
-        <None Include="settings.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 
     <ItemGroup>
