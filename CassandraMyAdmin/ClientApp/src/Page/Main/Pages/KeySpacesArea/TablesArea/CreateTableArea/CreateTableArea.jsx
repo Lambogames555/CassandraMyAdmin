@@ -11,8 +11,6 @@ import CustomButton from "../../../../../../Global/Elements/CustomButton/CustomB
 import closeIcon from '../../../../../../Resources/GoogleMaterialIcons/close.svg'
 import addIcon from '../../../../../../Resources/GoogleMaterialIcons/add.svg'
 
-
-//TODO cleanup code
 function CreateTableArea({currentSessionId, currentKeySpace, showMsgBox, handleClose}) {
     const {t} = useTranslation();
 
@@ -139,9 +137,7 @@ function CreateTableArea({currentSessionId, currentKeySpace, showMsgBox, handleC
             </div>
         )
     }
-
-    //TODO scrollbar for columns
-
+    
     return (
         <div className={"window-box"}>
 
