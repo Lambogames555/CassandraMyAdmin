@@ -141,7 +141,18 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
                             <tr className={"tableViewer-row"} key={index}>
                                 {
                                     JSON.parse(item).map((innerItem) => (
-                                        <td key={innerItem}>{innerItem}</td>
+                                        Array.isArray(innerItem) 
+                                            ?
+                                            <td key={innerItem}>
+                                                {innerItem.map((innerItemItem, innerIndex) => (
+                                                    <span key={innerIndex}>
+                                                        {innerIndex > 0 && ", "}
+                                                        {innerItemItem.trim()}
+                                                    </span>
+                                                ))}
+                                            </td>
+                                            :
+                                            <td key={innerItem}>{innerItem}</td>
                                     ))
                                 }
                             </tr>
