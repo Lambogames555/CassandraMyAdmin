@@ -64,8 +64,6 @@ function PermissionsArea({currentSessionId, currentUsername, handleClose, showMs
       
         if (data["userPermissions"] !== undefined) {
             
-            console.log(JSON.stringify(data))
-            
             let userPermissions = data["userPermissions"];
             
             setKeyspacesOptions(data["keyspaces"]);
@@ -287,9 +285,6 @@ function PermissionsArea({currentSessionId, currentUsername, handleClose, showMs
                                     onChange={(event) => handleChange(event, index, "resourceNameValue")}>>
                                 <option value={"none"}>{t("permissions.pleaseSelect")}</option>
                                 <option disabled="disabled">&#x2500;&#x2500;&#x2500;&#x2500;</option>
-                                {
-                                    console.log(JSON.stringify(row.resourceNameValueOptionsList))
-                                }
                                 {   
                                     row.resourceNameValueOptionsList.map(value => (
                                         <option>{value}</option>  
