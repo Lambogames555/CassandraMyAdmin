@@ -14,6 +14,7 @@ import Messagebox from "../../../../Global/Elements/Messagebox/Messagebox";
 import LoadingPopup from "../../../../LoadingPopup/LoadingPopup";
 
 import groupAddIcon from '../../../../Resources/GoogleMaterialIcons/groupadd.svg'
+import PermissionsArea from "./PermissionsArea/PermissionsArea";
 
 function UsersArea({currentSessionId}) {
     const {t} = useTranslation();
@@ -108,12 +109,35 @@ function UsersArea({currentSessionId}) {
                 
             case UsersDropDownMenuEnum.Permissions:
                 
-                //TODO implement
+                // Set username for the popup
+                setActiveUsername(user.username);
                 
+                setActivePopup(4);
+
                 break;
         }
         
     }
+    
+    if (activePopup === 4)
+        return (
+            <>
+                <PermissionsArea
+                    currentUsername={activeUsername}
+                    currentSessionId={currentSessionId}
+                    handleClose={handlePopupClose}
+                    showMsgBox={showMsgBox}/>
+
+                {
+                    showMessageBox ?
+                        <Messagebox messageBoxTitle={messageBoxTitle} messageBoxText={messageBoxText}
+                                    handleMsgBoxClose={() => setShowMessageBox(false)}/>
+                        :
+                        null
+                }
+            </>
+          
+        );
 
     return (
         <div className={"window-box scrollbar"}>
@@ -148,7 +172,7 @@ function UsersArea({currentSessionId}) {
                                     <span className={"users-superuser"}>{t("users.superuser")}</span> : null}</td>
                                 <td className={"align-right"}>
                                     <DropdownMenu data={user}
-                                                  buttonList={user.isSuperuser ? [["userDropdownMenu.demote", UsersDropDownMenuEnum.Demote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete]] : [["userDropdownMenu.promote", UsersDropDownMenuEnum.Promote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete]]}
+                                                  buttonList={user.isSuperuser ? [["userDropdownMenu.demote", UsersDropDownMenuEnum.Demote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete], ["userDropdownMenu.permissions", UsersDropDownMenuEnum.Permissions]] : [["userDropdownMenu.promote", UsersDropDownMenuEnum.Promote], ["userDropdownMenu.delete", UsersDropDownMenuEnum.Delete], ["userDropdownMenu.permissions", UsersDropDownMenuEnum.Permissions]]}
                                                   onItemSelected={onDropDownClicked}/>
                                 </td>
                             </tr>

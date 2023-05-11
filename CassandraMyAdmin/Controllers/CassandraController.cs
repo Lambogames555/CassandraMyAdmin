@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Cassandra;
 using CassandraMyAdmin.Models.ViewModels;
@@ -6,6 +7,7 @@ using CassandraMyAdmin.Other;
 using CassandraMyAdmin.Other.Enums;
 using CassandraMyAdmin.Other.Manager;
 using CassandraMyAdmin.Other.Objects;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -850,7 +852,179 @@ public partial class CassandraController : ControllerBase
         
         return Ok(response);
     }
-    
+
+    [HttpPost]
+    [Route("[action]")]
+    public IActionResult Permissions([FromBody] PermissionsViewModel viewModel)
+    {
+        // Validate viewmodel, check if sessionId exist and get the cassandra manager
+        switch (Helper.ValidateAndRetrieveCassandraManagerFromViewMode(viewModel, out var cassandraManager))
+        {
+            case SessionStatus.Ok:
+                break;
+            case SessionStatus.BadRequest:
+                return BadRequest();
+            case SessionStatus.Unauthorized:
+                return Unauthorized();
+            case SessionStatus.InternalServerError:
+                return StatusCode(500);
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        var username = viewModel.username;
+        
+        // Validate the input values
+        if (ValidateCqlInput().IsMatch(username))
+            return BadRequest();
+        
+        // Get the session from the Cassandra manager
+        var session = cassandraManager.GetSession();
+
+        switch (viewModel.action)
+        {
+            case PermissionsAction.Get:
+            {
+                // Get the cluster from the cassandraManager
+                var cluster = cassandraManager.GetCluster();
+
+                
+                var permissionsDictionary = Helper.GetUserPermissions(username, session);
+
+                var keyspaces = cluster.Metadata.GetKeyspaces().ToList();
+
+                if (Globals.Settings.hideSystemKeySpaces)
+                    keyspaces = keyspaces.Where(keyspace => keyspace.StartsWith("system") == false).ToList();
+                
+                var tables = Helper.GetAllTables(cluster);
+
+                var roles = Helper.GetAllRoles(session).ToList();
+
+
+                var response = new Dictionary<string, object>
+                {
+                    { "userPermissions", permissionsDictionary },
+                    { "keyspaces", keyspaces },
+                    { "tables", tables },
+                    { "roles", roles }
+                };
+
+                return Ok(response);
+            }
+            case PermissionsAction.Set:
+            {
+                // Deserialize JSON directly into List<Permissions>
+                var newPermissionsDictionary =
+                    JsonConvert.DeserializeObject<List<Permissions>>(viewModel.options["permissions"].ToString());
+
+                // Get the current user's permissions
+                var permissionsDictionary = Helper.GetUserPermissions(username, session);
+
+                // Iterate over each new permission item
+                foreach (var newPermissionsItem in newPermissionsDictionary)
+                {
+                    var resourceName = Helper.CreatePermissionResourceString(newPermissionsItem);
+                    var resourceNameValue = newPermissionsItem.resourceNameValue;
+
+                    // Check if the user already has permission for the resource
+                    if (Helper.HasUserPermissionResource(resourceName, permissionsDictionary,
+                            out var permissionResourceData))
+                    {
+                        var privilegesToAdd =
+                            newPermissionsItem.privilege.Except(permissionResourceData).ToList();
+                        var privilegesToRemove =
+                            permissionResourceData.Except(newPermissionsItem.privilege).ToList();
+
+                        // Add new privileges
+                        foreach (var privilege in privilegesToAdd)
+                        {
+                            //TODO implement in web panel
+                            // if the privilege is create and resourceName is table which does not support this privilege, ignore it
+                            if (privilege == "CREATE" && resourceName.Contains("/") && resourceName.Contains("."))
+                                continue;
+                            // if the privilege is modify or select and resourceName is role which does not support this privilege, ignore it
+                            if (privilege == "MODIFY" || privilege == "SELECT" && resourceName.Contains("role"))
+                                continue;
+                            if (privilege == "CREATE" && resourceName.StartsWith("role/"))
+                                continue;
+
+                            // Prepare the CQL statement with the values
+                            var cqlStatement = Helper.GeneratePermissionsCqlStatement(privilege, username, resourceName,
+                                resourceNameValue, true);
+
+                            // Execute the statement
+                            session.Execute(cqlStatement);
+                        }
+
+                        // Remove revoked privileges
+                        foreach (var privilege in privilegesToRemove)
+                        {
+                            // Prepare the CQL statement with the values
+                            var cqlStatement = Helper.GeneratePermissionsCqlStatement(privilege, username, resourceName,
+                                resourceNameValue, false);
+
+                            // Execute the statement
+                            session.Execute(cqlStatement);
+                        }
+                    }
+                    else
+                    {
+                        // Add new permissions for the resource
+                        foreach (var privilege in newPermissionsItem.privilege)
+                        {
+                            //TODO implement in web panel
+                            // if the privilege is create and resourceName is table which does not support this privilege, ignore it
+                            if (privilege == "CREATE" && resourceName.Contains("/") && resourceName.Contains("."))
+                                continue;
+                            // if the privilege is modify or select and resourceName is role which does not support this privilege, ignore it
+                            if (privilege == "MODIFY" || privilege == "SELECT" && resourceName.Contains("role"))
+                                continue;
+                            if (privilege == "CREATE" && resourceName.StartsWith("role/"))
+                                continue;
+
+                            // Prepare the CQL statement with the values
+                            var cqlStatement = Helper.GeneratePermissionsCqlStatement(privilege, username,
+                                resourceName, resourceNameValue, true);
+
+                            // Execute the statement
+                            session.Execute(cqlStatement);
+                        }
+                    }
+                }
+
+                // Delete revoked permissions
+                foreach (var permission in permissionsDictionary)
+                {
+                    var resourceName = permission.Key;
+
+                    // Check if the permission resource key exists in the new permissions dictionary
+                    if (!Helper.ContainsPermissionsResourceKey(resourceName, newPermissionsDictionary))
+                    {
+                        foreach (var privilege in permission.Value)
+                        {
+                            // Modify the resource name by replacing "data/" with "" and "/" with "."
+                            resourceName = resourceName.Replace("data/", "").Replace("/", ".");
+
+                            // Prepare the CQL statement with the values
+                            var cqlStatement = Helper.GeneratePermissionsCqlStatement(privilege, username,
+                                permission.Key, resourceName, false);
+
+                            // Execute the statement
+                            session.Execute(cqlStatement);
+                        }
+                    }
+                }
+                
+                
+                // Return the success response
+                return Ok(new Hashtable { { "success", "true" } });
+            }
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
     //TODO this should block cql attacks? idk... i should look into it
     [GeneratedRegex("[;&'\"]")]
     private static partial Regex ValidateCqlInput();

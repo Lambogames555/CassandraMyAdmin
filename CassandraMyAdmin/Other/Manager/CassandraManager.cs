@@ -8,7 +8,6 @@ namespace CassandraMyAdmin.Other.Manager;
 public class CassandraManager : IDisposable
 {
     private readonly Cluster _cluster;
-    //private readonly IMapper _mapper;
     private readonly ISession? _session;
     private readonly string _username;
     private readonly int _errorCode = -1;
@@ -69,10 +68,6 @@ public class CassandraManager : IDisposable
             // Set the error code to "Internal Server Error"
             _errorCode = 500;
         }
-        
-
-        // Create a mapper object from the session object
-        //_mapper = new Mapper(_session);
     }
 
     public void Dispose()
@@ -82,15 +77,10 @@ public class CassandraManager : IDisposable
         _cluster.Dispose();
     }
 
-    public ISession? GetSession()
+    public ISession GetSession()
     {
-        return _session;
+        return _session!;
     }
-
-    /*public IMapper GetMapper()
-    {
-        return _mapper;
-    }*/
 
     public Cluster GetCluster()
     {
