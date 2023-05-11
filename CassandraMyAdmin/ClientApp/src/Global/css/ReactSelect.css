@@ -1,0 +1,40 @@
+﻿.select-container {
+    margin-bottom: 10px;
+}
+
+.select-container * {
+    color: whitesmoke;
+}
+
+.select-container .select__control {
+    background-color: #333;
+    border-color: #444;
+}
+
+.select-container .select__control:hover {
+    border-color: #666;
+}
+
+.select-container .select__menu {
+    background-color: #444;
+}
+
+.select-container .select__option {
+    background-color: #444;
+}
+
+.select-container .select__option:hover {
+    background-color: #555;
+}
+
+.select-container .select__multi-value {
+    background-color: #555;
+}
+
+.select-container .select__multi-value__remove:hover {
+    background: #C92D3B;
+}
+
+.select-container .select__multi-value__label {
+    color: whitesmoke;
+}
