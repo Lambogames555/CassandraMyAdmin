@@ -30,6 +30,8 @@ function UsersArea({currentSessionId}) {
 
     const [requestData, setRequestData] = useState({});
 
+    const [searchQuery, setSearchQuery] = useState("");
+    
     const UsersDropDownMenuEnum = {
         Rename: 0,
         Promote: 1,
@@ -148,12 +150,17 @@ function UsersArea({currentSessionId}) {
             <div className={"users-button-box"}>
                 <CustomButton text={t("users.createUser")} icon={groupAddIcon} isActive={false}
                               onClick={() => setActivePopup(1)}/>
+
+                <input
+                    type="text"
+                    className={"popup-textbox"}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by username"
+                />
             </div>
 
             <div>
-                {
-                    // TODO search bar
-                }
                 <table className={"users-table"}>
 
                     <tbody>
@@ -164,7 +171,9 @@ function UsersArea({currentSessionId}) {
                     </tr>
 
                     {
-                        data.map((user) => (
+                        data.filter((user) =>
+                                user.username.toLowerCase().includes(searchQuery.toLowerCase())
+                            ).map((user) => (
                             <tr key={user.username} className={`users-table-row`}>
                                 <td className={"users-table-padding"}>{user.username}</td>
                                 <td>{user.isSuperuser ?
