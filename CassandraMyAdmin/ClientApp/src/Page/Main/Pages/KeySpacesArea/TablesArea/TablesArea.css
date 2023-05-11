@@ -16,6 +16,17 @@
     background: #383849;
 }
 
+.tables-list li:first-child {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.tables-list li:first-child .tables-button {
+    display: flex;
+    align-items: center;
+}
+
 .tables-button {
     background: none;
     border: none;

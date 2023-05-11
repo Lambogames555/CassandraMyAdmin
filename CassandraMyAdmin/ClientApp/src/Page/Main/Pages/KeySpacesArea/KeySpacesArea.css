@@ -10,6 +10,17 @@
     padding: 5px 20px;
 }
 
+.keyspaces-list li:first-child {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.keyspaces-list li:first-child .keyspaces-button {
+    display: flex;
+    align-items: center;
+}
+
 
 .keyspaces-list li:nth-child(even) {
     background: #383849;

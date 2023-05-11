@@ -29,6 +29,9 @@ function KeySpacesArea({currentSessionId}) {
     const [openKeySpace, setOpenKeySpace] = useState(null);
     const [requestData, setRequestData] = useState({});
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+
     useEffect(() => {
         // noinspection JSIgnoredPromiseFromCall
         fetchData(currentSessionId);
@@ -97,18 +100,31 @@ function KeySpacesArea({currentSessionId}) {
             <h1>{t("keySpaces.title")}</h1>
 
             {
-                //TODO wrong class (users-button-box)
-            }
-            <div className={"users-button-box"}>
-                <CustomButton text={t("keySpaces.createKeySpace")} icon={addIcon} isActive={false}
-                              onClick={() => setActivePopupValue(null, 1)}/>
-            </div>
-
-
-            {
                 Object.keys(data).length > 0 ? (
                     <ul className={"keyspaces-list"}>
-                        {Object.keys(data).map((key) => (
+
+
+                        <li>
+                            <div>
+                                <button className={"keyspaces-button"} onClick={() => setActivePopupValue(null, 1)}>
+                                    <img src={addIcon} alt={""}/>
+                                    {t("keySpaces.createKeySpace")}
+                                </button>
+                            </div>
+
+                            <input
+                                type="text"
+                                className={"popup-textbox"}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search by name"
+                            />
+                        </li>
+                        
+                        
+                        {Object.keys(data).filter((key) =>
+                            key.toLowerCase().includes(searchQuery.toLowerCase())
+                        ).map((key) => (
                             <li key={key}>
                                 <div>
                                     <button className={"keyspaces-button"} onClick={() => setOpenKeySpace(key)}>

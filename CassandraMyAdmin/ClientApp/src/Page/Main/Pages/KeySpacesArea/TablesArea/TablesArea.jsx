@@ -30,6 +30,8 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
     
     const [requestData, setRequestData] = useState({});
 
+    const [searchQuery, setSearchQuery] = useState("");
+    
     const TablesDropDownMenuEnum = {
         Clear: 1,
         Delete: 2,
@@ -160,15 +162,34 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
             <div className={"tables-button-box"}>
                 <CustomButton text={t("tables.back")} icon={arrowBackIcon} isActive={false}
                               onClick={() => handleClose()}/>
-                <CustomButton text={t("tables.createTable")} icon={addIcon} isActive={false}
-                              onClick={() => setActivePopupValue( 2)}/>
             </div>
 
 
             {
                 Object.keys(data).length > 0 ? (
                     <ul className={"tables-list"}>
-                        {Object.keys(data).map((key) => (
+
+
+                        <li>
+                            <div>
+                                <button className={"tables-button"} onClick={() => setActivePopupValue(2)}>
+                                    <img src={addIcon} alt={""}/>
+                                    {t("tables.createTable")}
+                                </button>
+                            </div>
+
+                            <input
+                                type="text"
+                                className={"popup-textbox"}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search by name"
+                            />
+                        </li>
+                        
+                        {Object.keys(data).filter((key) =>
+                            key.toLowerCase().includes(searchQuery.toLowerCase())
+                        ).map((key) => (
                             <li key={key}>
                                 <div>
                                     <button className={"tables-button"} onClick={() => {
