@@ -15,16 +15,15 @@ root.render(
     </React.StrictMode>
 );
 
-//TODO github push -> dont push settings.json
+//TODO table viewer cannot read lists correctly
+//TODO table view page bug
 
-//TODO create a permission system
-
+//TODO create a role system
 //TODO load contributors async to not slow down the loading unnecessarily
+//TODO customize website for other screen sizes
 //TODO check bundle size
 
-
 //TODO sort imports
-//TODO customize website for other screen sizes
 //TODO importer for sql or other dbs
 //TODO better variable naming -> some variables has weird names
 
