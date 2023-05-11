@@ -53,7 +53,8 @@
     "rename": "Rename",
     "demote": "Demote",
     "promote": "Promote",
-    "delete": "Delete"
+    "delete": "Delete",
+    "permissions": "Permissions"
   },
   "statistics": {
     "greeting": "Hello {{username}}! You are connected to {{clusterName}}."
@@ -133,5 +134,13 @@
     "updateCheckError": "An error occurred while checking for updates.",
     "updateFound": "An Update was found! The Update {{updateName}} (V{{updateTag}})!",
     "noUpdateFound": "You already have the latest version."
+  },
+  "permissions": {
+    "title": "Edit permissions of the user {{username}}",
+    "cancel": "Cancel",
+    "save": "Save",
+    "pleaseSelect": "Please select...",
+    "deleteThisPermission": "Delete this Permission.",
+    "textContainsForbiddenCharacters": "At least one text box contain forbidden characters."
   }
 }
