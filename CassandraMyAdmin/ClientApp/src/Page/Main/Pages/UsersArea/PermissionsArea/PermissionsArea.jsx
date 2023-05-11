@@ -218,7 +218,7 @@ function PermissionsArea({currentSessionId, currentUsername, handleClose, showMs
                 
                 const privilegeValues = row.privilege.map(item => item.value);
 
-                permissionsArray = [...permissionsArray, { resourceName: row.resourceName, resourceNameValue: row.resourceNameValue, privilege: privilegeValues }];
+                permissionsArray = [...permissionsArray, { resourceName: row.resourceName, resourceNameValue: row.resourceNameValue.replace("none", ""), privilege: privilegeValues }];
             }
         });
         
