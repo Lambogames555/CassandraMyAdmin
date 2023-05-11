@@ -18,7 +18,7 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
 
     const {data, isLoading, error, fetchData} = Fetcher([], showMsgBox, true, '/Cassandra/GetTableData');
 
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [isFetching, setIsFetching] = useState(false);
     const [requestData, setRequestData] = useState(null);
@@ -43,8 +43,10 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
 
     function fetchRowData() {
 
-        if (currentPage < 0)
-            setCurrentPage(0);
+        if (currentPage <= 0) {
+            setCurrentPage(1);
+            return;
+        }
 
         //TODO chat that the page cannot > max page
 
