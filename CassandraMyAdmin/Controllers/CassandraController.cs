@@ -769,7 +769,7 @@ public partial class CassandraController : ControllerBase
                 columnNames.Reverse();
 
                 // TODO dynamic page size
-                const int pageSize = 7;
+                const int pageSize = 9;
 
                 // Execute the bound statement on the session to retrieve a result set
                 var resultSet = session.Execute(cqlQuery).Skip((page - 1) * pageSize).Take(pageSize);
