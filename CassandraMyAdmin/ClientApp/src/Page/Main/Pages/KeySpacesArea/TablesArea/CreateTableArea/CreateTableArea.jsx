@@ -111,7 +111,6 @@ function CreateTableArea({currentSessionId, currentKeySpace, showMsgBox, handleC
         // noinspection JSIncompatibleTypesComparison
         const requestData = {
             action: 0,
-            sessionId: currentSessionId,
             tableName: newTableName,
             keySpaceName: currentKeySpace,
             options: {
@@ -193,7 +192,7 @@ function CreateTableArea({currentSessionId, currentKeySpace, showMsgBox, handleC
                             <td>
                                 <div className={"popup-input-box"}>
                                     <select className={"popup-dropdown"}
-                                            style={{width: '200px'}}
+                                            style={{width: '200px'}} //TODO
                                             value={row.columnTypeComboBox}
                                             onChange={(event) => handleChange(event, index, "columnTypeComboBox")}>
                                         <option value="text">Text</option>

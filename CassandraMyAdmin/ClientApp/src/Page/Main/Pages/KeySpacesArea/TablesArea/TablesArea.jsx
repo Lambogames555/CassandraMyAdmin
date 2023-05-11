@@ -55,7 +55,6 @@ function TablesArea({currentSessionId, openKeySpace, handleClose}) {
 
         setRequestData({
             action: enumNumber,
-            sessionId: currentSessionId,
             tableName: currentTableName,
             keySpaceName: openKeySpace,
             options: {}

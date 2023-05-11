@@ -25,10 +25,8 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
     const [columnData, setColumnData] = useState([])
 
     useEffect(() => {
-
-        // TODO remove sessionId from requestData -> it is no longer needed
+        
         const currentRequestData = {
-            sessionId: currentSessionId,
             action: 0,
             keySpaceName: currentKeySpace,
             tableName: currentTable,
@@ -51,7 +49,6 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
         //TODO chat that the page cannot > max page
 
         setRequestData({
-            sessionId: currentSessionId,
             action: 1,
             keySpaceName: currentKeySpace,
             tableName: currentTable,

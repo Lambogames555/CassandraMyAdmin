@@ -97,7 +97,6 @@ function UsersArea({currentSessionId}) {
                 
                 // Set the request data
                 setRequestData({
-                    sessionId: currentSessionId,
                     action: enumNumber,
                     username: user.username,
                     options: {},
