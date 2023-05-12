@@ -1,0 +1,20 @@
+.number-box {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    font-size: 28px;
+    width: 100px;
+}
+
+.number-box:focus {
+    outline: none;
+}
+
+.dark-mode .number-box {
+    background-color: #000;
+}
+
+.dark-mode .number-box:focus {
+    border: 2px solid #fff;
+}
