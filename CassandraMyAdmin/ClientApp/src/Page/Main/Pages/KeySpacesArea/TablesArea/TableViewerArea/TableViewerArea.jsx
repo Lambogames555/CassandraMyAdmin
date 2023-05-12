@@ -168,25 +168,26 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
                     <tbody>
                     {
                         columnData.map((item, index) => (
-                            <tr className={"tableViewer-row"} key={index}>
-                                {
-                                    JSON.parse(item).map((innerItem) => (
-                                        Array.isArray(innerItem) 
-                                            ?
-                                            <td key={innerItem}>
-                                                {innerItem.map((innerItemItem, innerIndex) => (
-                                                    <span key={innerIndex}>
-                                                        {innerIndex > 0 && ", "}
-                                                        {innerItemItem.trim()}
-                                                    </span>
-                                                ))}
-                                            </td>
-                                            :
-                                            <td key={innerItem}>{innerItem}</td>
-                                    ))
-                                }
+                            <tr className="tableViewer-row" key={index}>
+                                {JSON.parse(item).map((innerItem, innerIndex) => (
+                                    <td key={innerIndex}>
+                                        {typeof innerItem === 'object' && innerItem !== null ? (
+                                            <span>
+                                            {Object.entries(innerItem).map(([key, value], nestedIndex) => (
+                                                <span key={nestedIndex}>
+                                                    {nestedIndex > 0 && ", "}
+                                                    <strong>{key}:</strong> {value}
+                                                </span>
+                                            ))}
+                                          </span>
+                                        ) : (
+                                            <span>{innerItem}</span>
+                                        )}
+                                    </td>
+                                ))}
                             </tr>
                         ))
+
                     }
                     </tbody>
                 </table>
