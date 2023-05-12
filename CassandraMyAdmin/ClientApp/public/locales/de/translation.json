@@ -110,9 +110,7 @@
   },
   "tableViewer": {
     "title": "Tabellen ansicht: {{tableName}}",
-    "back": "Zurück",
-    "last": "Letzte",
-    "next": "Nächste"
+    "back": "Zurück"
   },
   "loginPage": {
     "username": "Benutzername",
