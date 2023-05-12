@@ -15,11 +15,8 @@ root.render(
     </React.StrictMode>
 );
 
-//TODO table viewer cannot read lists correctly
-//TODO table view page bug
 
 //TODO create a role system
-//TODO load contributors async to not slow down the loading unnecessarily
 //TODO customize website for other screen sizes
 //TODO check bundle size
 
