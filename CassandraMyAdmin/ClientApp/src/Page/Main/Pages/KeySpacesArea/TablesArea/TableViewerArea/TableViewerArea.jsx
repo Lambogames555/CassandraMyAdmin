@@ -1,5 +1,7 @@
 import './TableViewerArea.css'
 import '../../../../../../Global/css/Popup.css'
+import '../../../../../../Global/css/Numberbox.css'
+
 
 import {useEffect, useState} from 'react';
 
@@ -19,11 +21,15 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
     const {data, isLoading, error, fetchData} = Fetcher([], showMsgBox, true, '/Cassandra/GetTableData');
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [tempPageNumber, setTempPageNumber] = useState(1);
 
+    
     const [isFetching, setIsFetching] = useState(false);
     const [requestData, setRequestData] = useState(null);
     const [columnData, setColumnData] = useState([])
 
+    let timeoutId = null;
+    
     useEffect(() => {
         
         const currentRequestData = {
@@ -40,12 +46,6 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
     }, []);
 
     function fetchRowData() {
-
-        if (currentPage <= 0) {
-            setCurrentPage(1);
-            return;
-        }
-
         //TODO chat that the page cannot > max page
 
         setRequestData({
@@ -61,6 +61,15 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
     }
 
     useEffect(() => {
+        
+        if (currentPage <= 0) {
+            setCurrentPage(1);
+            setTempPageNumber(1);
+            return;
+        }
+
+        setTempPageNumber(currentPage);
+        
         fetchRowData();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,16 +120,38 @@ function TableViewerArea({currentSessionId, currentKeySpace, currentTable, showM
             <h1>{t("tableViewer.title", {tableName: currentTable})}</h1>
 
 
-            <div className={"createTable-button-box"}>
-                {
-                    // TODO better "page switch" button system
-                }
+            <div className={"tableViewer-button-box"}>
                 <CustomButton text={t("tableViewer.back")} icon={arrowBackIcon} isActive={false}
                               onClick={() => handleClose()}/>
-                <CustomButton text={t("tableViewer.last")} icon={arrowBackIosIcon} isActive={false}
-                              onClick={() => setCurrentPage(currentPage - 1)}/>
-                <CustomButton text={t("tableViewer.next")} icon={arrowForwardIosIcon} isActive={false}
-                              onClick={() => setCurrentPage(currentPage + 1)}/>
+                
+                <div className={"tableViewer-page-switcher-box"}>
+                    <button onClick={() => setCurrentPage(currentPage - 1)}>
+                        <img className={"tableViewer-anti-image-bug"} src={arrowBackIosIcon} alt={""} />
+                    </button>
+
+                    <input
+                        type="number"
+                        value={tempPageNumber}
+                        onChange={(event) => {
+                            const number = parseInt(event.target.value);
+                            setTempPageNumber(number);
+                        }}
+                        onBlur={(event => {
+                            const number = parseInt(event.target.value);
+                            cancelAnimationFrame(timeoutId);
+                            timeoutId = requestAnimationFrame(() => {
+                                if (!isNaN(number)) {
+                                    setCurrentPage(number);
+                                }
+                            });
+                        })}
+                        className="number-box"
+                    />
+
+                    <button onClick={() => setCurrentPage(currentPage + 1)}>
+                        <img src={arrowForwardIosIcon} alt={""} />
+                    </button>
+                </div>
             </div>
 
             <div className={"tableViewer-box"}>

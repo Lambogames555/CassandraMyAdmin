@@ -1,7 +1,7 @@
-.createTable-button-box {
+.tableViewer-button-box {
     margin-bottom: 50px;
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
 }
 
 
@@ -46,4 +46,31 @@ table {
 
 th {
     padding-bottom: 20px;
+}
+
+.tableViewer-page-switcher-box {
+    display: flex;
+    gap: 10px;
+}
+
+.tableViewer-page-switcher-box button {
+    background: #393948;
+    border: none;
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tableViewer-page-switcher-box button img {
+    margin: 0;
+    padding: 0;
+    height: 48px;
+}
+
+.tableViewer-anti-image-bug {
+    margin-left: 20px !important;
 }
