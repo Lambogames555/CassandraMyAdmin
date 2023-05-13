@@ -33,7 +33,7 @@ public abstract partial class Helper
                 return SessionStatus.Unauthorized;
             }
 
-            cassandraManager = Globals.Sessions[sessionId];
+            cassandraManager = Globals.Sessions[sessionId].Item1;
 
             return SessionStatus.Ok;
         }
