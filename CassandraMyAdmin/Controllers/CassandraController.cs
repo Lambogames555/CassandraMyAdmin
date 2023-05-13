@@ -18,8 +18,31 @@ namespace CassandraMyAdmin.Controllers;
 public partial class CassandraController : ControllerBase
 {
     //TODO make all things async?
-    //TODO fail2ban with settings
 
+    [HttpPost]
+    [Route("[action]")]
+    public IActionResult PreLogin()
+    {
+        switch (Globals.Settings.captchaMode)
+        {
+            case 0:
+                return Ok();
+            case 1:
+                return Ok(true);
+            case 2:
+                return Ok(Fail2BanManager.IsIpSuspicious(HttpContext));
+            default:
+                throw new ArgumentOutOfRangeException(nameof(Globals.Settings.captchaMode));
+        }
+    }
+    
+    [HttpPost]
+    [Route("[action]")]
+    public IActionResult GetCaptcha()
+    {
+        return Ok(CaptchaManager.GenerateCaptcha() + "|" + Globals.Settings.captchaDifficulty);
+    }
+    
     [HttpPost]
     [Route("[action]")]
     public IActionResult ConnectToCassandra([FromBody] ConnectToCassandraViewModel viewModel)
@@ -27,6 +50,36 @@ public partial class CassandraController : ControllerBase
         // Check if the view model data is valid
         if (!ModelState.IsValid)
             return BadRequest();
+
+        var ip = Helper.GetIpAddress(HttpContext);
+
+        // Check if the IP address is banned using Fail2Ban
+        if (Fail2BanManager.IsIpBanned(ip))
+        {
+            if (!Globals.Settings.silentBan)
+                return StatusCode(402, "Due to too many incorrect logins your ip address has been banned.");
+            
+            return StatusCode(401); // Return HTTP 401 Unauthorized status code
+        }
+
+        // Check if PowCaptcha is enabled for login
+        if (Globals.Settings.captchaMode != 0)
+        {
+            if (Globals.Settings.captchaMode == 1 || Fail2BanManager.IsIpSuspicious(HttpContext))
+            {
+                var captchaResponse = CaptchaManager.CheckCaptcha(viewModel.solution);
+
+                // If the captcha response is not empty or null, it means the captcha check failed
+                if (!string.IsNullOrEmpty(captchaResponse))
+                {
+                    if (Globals.Settings.fail2Ban)
+                        Fail2BanManager.AddViolation(ip, Fail2BanReason.CaptchaFail);
+
+                    // Return an "OK" response with a message indicating the captcha check failed
+                    return StatusCode(402, captchaResponse);
+                }   
+            }
+        }
 
         var username = viewModel.username;
         var password = viewModel.password;
@@ -41,6 +94,12 @@ public partial class CassandraController : ControllerBase
         // Is session is "null" then an error as occured
         if (session == null)
         {
+            if (cassandraManager.GetErrorCode() == 401)
+                if (Globals.Settings.fail2Ban)
+                    Fail2BanManager.AddViolation(ip, Fail2BanReason.BadLogin);
+
+
+            
             // Return a error status code if an error occured
             return StatusCode(cassandraManager.GetErrorCode());
         }
@@ -52,6 +111,9 @@ public partial class CassandraController : ControllerBase
         }
         catch (AuthenticationException)
         {
+            if (Globals.Settings.fail2Ban)
+                Fail2BanManager.AddViolation(ip, Fail2BanReason.BadLogin);
+            
             // Return a 401 Unauthorized status code if the authentication failed
             return StatusCode(401);
         }
