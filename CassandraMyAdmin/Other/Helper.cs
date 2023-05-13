@@ -220,6 +220,23 @@ public abstract partial class Helper
         }
     }
     
+    public static string GetIpAddress(HttpContext httpContext)
+    {
+        if (!string.IsNullOrEmpty(httpContext.Request.Headers["CF-CONNECTING-IP"]))
+            return httpContext.Request.Headers["CF-CONNECTING-IP"]!;
+
+        var ipAddress = httpContext.GetServerVariable("HTTP_X_FORWARDED_FOR");
+
+        if (!string.IsNullOrEmpty(ipAddress))
+        {
+            var addresses = ipAddress.Split(',');
+            if (addresses.Length != 0)
+                return addresses[0];
+        }
+
+        return httpContext.Connection.RemoteIpAddress?.ToString()!;
+    }
+
     //TODO this should block cql attacks? idk... i should look into it
     [GeneratedRegex("[;&'\"]")]
     private static partial Regex ValidateCqlInput();
