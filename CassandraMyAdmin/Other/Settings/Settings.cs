@@ -6,7 +6,7 @@ public class Settings
 {
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public string configVersion { get; set; } = "1";
-    
+
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public string cassandraIp { get; set; } = "127.0.0.1";
 
@@ -16,13 +16,6 @@ public class Settings
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public bool onlySuperUserLogin { get; set; } = false;
     
-    //TODO implement pow captcha
-    /*[JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-    public bool showPowCaptchaOnLogin { get; set; } = false;
-    
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-    public int powCaptchaDifficulty { get; set; } = 5;*/
-    
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public bool hideSystemKeySpaces { get; set; } = true;
     
@@ -31,4 +24,16 @@ public class Settings
     
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
     public bool countTableRows { get; set; } = false;
+    
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+    public int captchaMode { get; set; } = 2; //0 = disabled, 1 = always, 2 = only on suspicious logins
+    
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+    public int captchaDifficulty { get; set; } = 4;
+
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+    public bool fail2Ban { get; set; } = true;
+    
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+    public bool silentBan { get; set; } = true;
 }
