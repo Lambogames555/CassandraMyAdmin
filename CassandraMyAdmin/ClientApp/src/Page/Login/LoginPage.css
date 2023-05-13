@@ -40,12 +40,16 @@
     box-shadow: 5px 5px 17px 5px #000000;
 }
 
+.higher-login-box {
+    height: 560px;
+}
+
 .login-header {
     margin: 40px 0;
 }
 
 .login-footer {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .login-footer button {

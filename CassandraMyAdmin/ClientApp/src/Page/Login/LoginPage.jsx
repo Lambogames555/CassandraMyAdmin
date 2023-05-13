@@ -5,10 +5,11 @@ import {useNavigate} from 'react-router-dom';
 import {setCookie} from "../../Global/Other/CookieManager";
 import CustomButton from "../../Global/Elements/CustomButton/CustomButton";
 import Messagebox from "../../Global/Elements/Messagebox/Messagebox";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LoadingPopup from "../../LoadingPopup/LoadingPopup";
 
 import loginIcon from '../../Resources/GoogleMaterialIcons/login.svg'
+import Captcha from "../../Global/Elements/Captcha/Captcha";
 
 function LoginPage() {
     const {t, i18n} = useTranslation();
@@ -20,10 +21,33 @@ function LoginPage() {
 
     const [isLoading, setIsLoading] = useState(false);
     
+    const [showCaptcha, setShowCaptcha] = useState(false);
+    
     function handleLanguageChange(event) {
         // noinspection JSIgnoredPromiseFromCall
         i18n.changeLanguage(event.target.value);
     }
+
+
+    async function fetchCaptchaData() {
+        // Send a POST request to the URL with the request body.
+        const response = await fetch('/Cassandra/PreLogin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Get the response data as text and set the HTTP status code.
+        const responseText = await response.text();
+        setShowCaptcha(responseText === "true")
+    }
+    
+    useEffect( () => {
+        
+        // noinspection JSIgnoredPromiseFromCall
+        fetchCaptchaData();
+    }, []);
     
     async function handleLogin() {
         try {
@@ -32,15 +56,18 @@ function LoginPage() {
 
             let usernameInputField = document.getElementById("username");
             let passwordInputField = document.getElementById("password");
-
+            let captchaSolutionField= document.getElementById("solution");
 
             let username = usernameInputField.value;
             let password = passwordInputField.value;
-
+            let solution = "notSolved"
+            
             if (!username || !password)
                 return;
 
-
+            if (showCaptcha)
+                solution = captchaSolutionField.value;
+    
             passwordInputField.value = '';
 
 
@@ -53,12 +80,18 @@ function LoginPage() {
                 body: JSON.stringify({
                     username: username,
                     password: password,
+                    solution: solution,
                 })
             });
 
             // Get the response data as text and set the HTTP status code.
             const responseText = await response.text();
 
+            if (response.status !== 200) {
+                setShowCaptcha(false);
+                await fetchCaptchaData();
+            }
+            
             // Check for status codes
             switch (response.status) {
                 case 400:
@@ -66,6 +99,9 @@ function LoginPage() {
                     return;
                 case 401:
                     showMsgBox(t("messageBox.error"), t("loginPage.usernameOrPasswordIncorrect"))
+                    return;
+                case 402:
+                    showMsgBox(t("messageBox.error"), responseText)
                     return;
                 case 403:
                     showMsgBox(t("messageBox.error"), t("loginPage.userNotAllowed"))
@@ -102,7 +138,7 @@ function LoginPage() {
     return (
         <>
             <div className={"center max-height"}>
-                <div className={"login-box"}>
+                <div className={`login-box ${showCaptcha ? "higher-login-box" : ""}`}>
                     <div className={"login-header"}>
                         <h1 className={"cassandra-my-admin-title"}>Cassandra<span
                             style={{color: "#FF7889"}}>MyAdmin</span></h1>
@@ -126,6 +162,13 @@ function LoginPage() {
                                 <option value="de">🇩🇪 Deutsch</option>
                             </select>
                         </div>
+
+                        {
+                            showCaptcha ?
+                                <Captcha />
+                                :
+                                null
+                        }
                     </div>
 
                     <div className={"login-footer center"}>
