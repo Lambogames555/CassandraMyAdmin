@@ -15,7 +15,9 @@ function Captcha() {
 
     const captchaWorker = useWorker(createCaptchaWorker);
 
-    
+    const resetCaptcha = () => {
+        setVerified(false);
+    }
     
     const handleSolveClick = () => {
 
@@ -42,6 +44,8 @@ function Captcha() {
 
             setLoading(false);
             setVerified(true);
+
+            setTimeout(resetCaptcha, 55000);
         })
         .catch(error => {
             console.log("Error: " + error);
