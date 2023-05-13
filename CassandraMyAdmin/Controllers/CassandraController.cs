@@ -139,10 +139,27 @@ public partial class CassandraController : ControllerBase
         var sessionId = Guid.NewGuid() + "-" + Guid.NewGuid() + "-" + Guid.NewGuid();
 
         // Add the new session to a global dictionary for future reference
-        Globals.Sessions.Add(sessionId, cassandraManager);
+        Globals.Sessions.Add(sessionId, (cassandraManager, DateTime.Now.AddDays(0.21)));
 
         // Return the generated session ID as a successful response
         return Ok(sessionId);
+    }
+
+    [HttpPost]
+    [Route("[action]")]
+    public IActionResult Logout([FromBody] SessionIdViewModel viewModel)
+    {
+        // Check if the view model data is valid
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        var sessionId = viewModel.sessionId;
+
+        // Check if the session exist and "delete" the session
+        if (Globals.Sessions.ContainsKey(sessionId))
+            Globals.Sessions.Remove(sessionId);
+
+        return Ok();
     }
 
     [HttpPost]

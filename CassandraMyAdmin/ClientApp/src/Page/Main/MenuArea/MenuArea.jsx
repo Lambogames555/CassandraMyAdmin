@@ -3,7 +3,7 @@ import './MenuArea.css'
 import {useTranslation} from "react-i18next";
 import {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {removeCookie} from "../../../Global/Other/CookieManager";
+import {getCookie, removeCookie} from "../../../Global/Other/CookieManager";
 
 import CustomButton from "../../../Global/Elements/CustomButton/CustomButton";
 
@@ -33,16 +33,25 @@ function MenuArea({setCurrentPageValue}) {
         {text: t("menuButton.logout"), icon: logoutIcon},
     ];
 
-    const handleButtonClick = (index) => {
+    async function handleButtonClick(index) {
         if (index === buttons.length - 1) {
-            removeCookie("sessionId");
-            navigate("login");
+            fetch('/Cassandra/Logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( { sessionId: getCookie("sessionId") })
+            })
+            .then(() => {
+                removeCookie("sessionId");
+                navigate("login");
+            })
             return;
         }
 
         setActiveButton(index);
         setCurrentPageValue(index);
-    };
+    }
 
     return (
         <div className={"menu-box"}>
