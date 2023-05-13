@@ -76,19 +76,16 @@ public class Fail2BanManager
     {
         // Get the current timestamp
         var now = DateTime.Now;
-    
-        // Find all watched IP addresses with violations that have expired
-        var expiredViolations = _watchedIpAddressesList.Where(wip => wip.lastViolation <= now).ToList();
-
+ 
         // Iterate through each expired violation
-        foreach (var expiredViolation in expiredViolations)
+        foreach (var watchedIpAddress in _watchedIpAddressesList)
         {
             // Decrement the points of the expired violation
-            expiredViolation.points--;
+            watchedIpAddress.points--;
         
             // If the points reach or go below zero, remove the violation from the list
-            if (expiredViolation.points <= 0)
-                _watchedIpAddressesList.Remove(expiredViolation);
+            if (watchedIpAddress.points <= 0)
+                _watchedIpAddressesList.Remove(watchedIpAddress);
         }
     
         // Find all banned IP addresses that have expired
